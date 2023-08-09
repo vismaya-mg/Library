@@ -1,4 +1,9 @@
-﻿using LibraryManagement.Model;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using LibraryManagement.Model;
 using LibraryManagement.Persistence.Context;
 using LibraryManagement.Requests.Queries;
 using MockQueryable.Moq;
@@ -6,33 +11,25 @@ using Moq;
 
 namespace LibraryManagement.Application.Tests.CustomerManagement.Queries;
 
-public class GetCustomersQueryTests
+public class GetCustomerByIdQueryTests
 {
 
-    /// <summary>
-    /// Readonly Mock object of type ILibraryDbContext interface
-    /// </summary>
     private readonly Mock<ILibraryDbContext> _mockLibraryDbContext;
-
-    /// <summary>
-    /// Constructor initializes mock database with data
-    /// </summary>
-    public GetCustomersQueryTests()
+        
+    public GetCustomerByIdQueryTests()
     {
         _mockLibraryDbContext = new Mock<ILibraryDbContext>();
         MockCustomerdata();
     }
 
     [Fact]
-    public async Task GetCustomerQuery_ShouldReturn_ValidData()
+    public async Task GetCustomerByIdQueryTests_ShouldReturn_CorrectDataBasedOnTheId()
     {
-        var handler = new GetCustomersQueryHandler(_mockLibraryDbContext.Object);
-        var result = await handler.Handle(new GetCustomersQuery(), CancellationToken.None);
-        var customer = result.First();
-        Assert.NotEmpty(result);
-        Assert.Single(result);
-        Assert.Equal("Test", customer.Name);
-        Assert.Equal("1234567890", customer.PhoneNumber);
+        var handler = new GetCustomerByIdQueryHandler(_mockLibraryDbContext.Object);
+        var result = await handler.Handle(new GetCustomerByIdQuery { CustomerId = 1},CancellationToken.None);
+        Assert.NotNull(result);
+        Assert.Equal("Test", result.Name);
+        Assert.Equal("1234567890", result.PhoneNumber);
     }
 
     #region DatabaseInitilization

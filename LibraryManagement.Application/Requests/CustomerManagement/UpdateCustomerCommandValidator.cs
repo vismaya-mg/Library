@@ -19,7 +19,7 @@ public class UpdateCustomerCommandValidator : AbstractValidator<UpdateCustomerCo
         _libraryDbContext = libraryDbContext;
 
         //Rules for required fields
-        RuleFor(x => x.Id).NotEmpty().NotNull().WithMessage(ValidationMessage.Required)
+        RuleFor(x => x.Id).NotNull().WithMessage(ValidationMessage.Required)
                           .Must(NotFound).WithMessage(ValidationMessage.NotFound);
         RuleFor(x => x.CustomerName).NotNull().NotEmpty().WithMessage(ValidationMessage.Required);
         RuleFor(x => x.PhoneNumber).NotNull().NotEmpty().WithMessage(ValidationMessage.Required);

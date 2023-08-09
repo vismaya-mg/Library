@@ -27,7 +27,10 @@
 
   <ItemGroup>
     <Folder Include="BookManagement\" />
-    <Folder Include="CustomerManagement\Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LibraryManagement.Application\LibraryManagement.Application.csproj" />
   </ItemGroup>
 
 </Project>
